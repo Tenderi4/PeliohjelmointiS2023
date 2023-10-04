@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
     private Rigidbody rb;
-    private GroundCheck3D check;
+    private BoxCollider collider;
+    private bool isGrounded;
 
     public float gravity = -9.81f;
     public float gravityScale = 1;
@@ -25,47 +26,52 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Speed_f",1f);
 
         rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true;
-        rb.useGravity = false;
+        //rb.isKinematic = true;
+        //rb.useGravity = false;
 
-        check = GetComponent<GroundCheck3D>();
+        collider = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && check.isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             animator.SetTrigger("Jump_trig");
-            velocity = jumpForce;
-            check.isGrounded = false;
+            rb.AddForce(Vector3.up * jumpForce,ForceMode.Impulse);
+            isGrounded = false;
         }
-
-        if (check.isGrounded && velocity <= 0)
-        {
-            float offset = 1;
-            velocity = 0;
-            Vector3 closestPoint = check.hit.collider.ClosestPoint(transform.position);
-            Vector3 snappedPosition = new Vector3(transform.position.x, closestPoint.y + offset, transform.position.z);
-
-            transform.position = snappedPosition;
+        if (!isGrounded) 
+        { 
+            rb.AddForce(Vector3.up * gravity * gravityScale, ForceMode.Acceleration); 
         }
+        
+
+        //if (check.isGrounded && velocity <= 0)
+        //{
+        //    float offset = 1;
+        //    velocity = 0;
+        //    Vector3 closestPoint = check.hit.collider.ClosestPoint(transform.position);
+        //    Vector3 snappedPosition = new Vector3(transform.position.x, closestPoint.y + offset, transform.position.z);
+
+        // //   transform.position = snappedPosition;
+        //}
 
     }
 
 
     void FixedUpdate()
     {
-       velocity += (gravity * gravityScale) * Time.fixedDeltaTime;
-       float vPos = rb.position.y + velocity * Time.fixedDeltaTime;
-       rb.MovePosition(new Vector3(rb.position.x, vPos, rb.position.z));
+        //velocity += (gravity * gravityScale) * Time.fixedDeltaTime;
+        //float vPos = rb.position.y + velocity * Time.fixedDeltaTime;
+        //rb.MovePosition(new Vector3(rb.position.x, vPos, rb.position.z));
     }
     void OnCollisionEnter(Collision collision)
     {
-        check.isGrounded = true;
+        isGrounded = true;
     }
     void OnCollisionExit(Collision collision)
     {
-        check.isGrounded = false;
+        isGrounded = false;
     }
 }
