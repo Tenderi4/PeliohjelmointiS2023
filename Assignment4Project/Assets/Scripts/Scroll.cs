@@ -5,6 +5,7 @@ using UnityEngine;
 public class Scroll : MonoBehaviour
 {
     public float Speed = 5f;
+    public bool IsLooping = false;
     public float LoopPoint = 0f;
     private Vector3 StartingPosition;
     // Start is called before the first frame update
@@ -16,7 +17,7 @@ public class Scroll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.transform.position.x <= LoopPoint)
+        if (gameObject.transform.position.x <= LoopPoint && IsLooping)
         {
             gameObject.transform.position = StartingPosition;
         }

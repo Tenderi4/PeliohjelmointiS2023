@@ -8,14 +8,14 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
     private Rigidbody rb;
-    private BoxCollider collider;
+   // private BoxCollider collider;
     private bool isGrounded;
 
     public float gravity = -9.81f;
     public float gravityScale = 1;
     public float jumpForce = 5;
 
-    private float velocity;
+    // private float velocity;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
         //rb.isKinematic = true;
         //rb.useGravity = false;
 
-        collider = GetComponent<BoxCollider>();
+        // collider = GetComponent<BoxCollider>();
+       
     }
 
     // Update is called once per frame
@@ -43,7 +44,7 @@ public class PlayerController : MonoBehaviour
         }
         if (!isGrounded) 
         { 
-            rb.AddForce(Vector3.up * gravity * gravityScale, ForceMode.Acceleration); 
+            rb.AddForce(Vector3.up * gravity * gravityScale, ForceMode.Force); 
         }
         
 
