@@ -460,6 +460,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 022cd8e9b1d113b41905bcb401343e62, type: 2}
+    - target: {fileID: 9500000, guid: 70ab0d3e71b54ac4bbd703cb0a686c4d, type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ab0d3e71b54ac4bbd703cb0a686c4d, type: 3}
 --- !u!1 &1220480624
@@ -537,6 +541,7 @@ MonoBehaviour:
   gravity: -9.81
   gravityScale: 0.5
   jumpForce: 25
+  Health: 3
 --- !u!54 &1800059245
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float gravity = -9.81f;
     public float gravityScale = 1;
     public float jumpForce = 5;
+    public int Health = 3;
 
     // private float velocity;
 
@@ -74,5 +75,16 @@ public class PlayerController : MonoBehaviour
     void OnCollisionExit(Collision collision)
     {
         isGrounded = false;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        if (Health <= 0)
+        {
+            animator.SetBool("Death_b",true);
+            animator.SetInteger("DeathType_int",2);
+            Time.timeScale = 0;
+        }
     }
 }
