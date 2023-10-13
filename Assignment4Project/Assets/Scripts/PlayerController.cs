@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
     private Rigidbody rb;
+    private ParticleSystem part;
+    private SkinnedMeshRenderer render;
    // private BoxCollider collider;
     private bool isGrounded;
 
@@ -32,6 +34,8 @@ public class PlayerController : MonoBehaviour
 
         // collider = GetComponent<BoxCollider>();
        
+        part = GetComponentInChildren<ParticleSystem>();
+        render = GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
     // Update is called once per frame
@@ -82,8 +86,8 @@ public class PlayerController : MonoBehaviour
         Health -= damage;
         if (Health <= 0)
         {
-            animator.SetBool("Death_b",true);
-            animator.SetInteger("DeathType_int",2);
+            part.Play();
+            render.transform.gameObject.SetActive(false);
             Time.timeScale = 0;
         }
     }
