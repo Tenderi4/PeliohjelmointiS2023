@@ -18,6 +18,11 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 5;
     public int Health = 3;
 
+    public AudioSource deathSFX;
+    public AudioSource music;
+    public AudioSource jumpSFX;
+    public AudioSource hitSFX;
+
     // private float velocity;
 
     // Start is called before the first frame update
@@ -46,6 +51,7 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("Jump_trig");
             rb.AddForce(Vector3.up * jumpForce,ForceMode.Impulse);
             isGrounded = false;
+            jumpSFX.Play();
         }
         if (!isGrounded) 
         { 
@@ -84,9 +90,12 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Health -= damage;
+        hitSFX.Play();
         if (Health <= 0)
         {
             part.Play();
+            deathSFX.Play();
+            music.Pause();
             render.transform.gameObject.SetActive(false);
             Time.timeScale = 0;
         }
