@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverHUD;
     public GameObject GamePausedHUD;
     public float gameSpeed = 1.0f;
+    private float timer = 0f;
     
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GamePausedHUD.activeSelf && !GameOverHUD.activeSelf)
+        {
+            float maxTime = 15f;
+            timer += Time.deltaTime;
+            if (timer > maxTime)
+            {
+                gameSpeed *= 1.1f;
+                timer = 0f;
+            }
+            Time.timeScale = gameSpeed;
+        }
     }
 
     public void Pause()

@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
         }
         if (!isGrounded && Time.timeScale != 0.0f) 
         { 
-            rb.AddForce(Vector3.up * gravity * gravityScale, ForceMode.Force); 
+            rb.AddForce(Vector3.up * gravity * gravityScale * gameManager.gameSpeed, ForceMode.Force); 
         }
         
 
@@ -73,14 +73,6 @@ public class PlayerController : MonoBehaviour
         // //   transform.position = snappedPosition;
         //}
 
-    }
-
-
-    void FixedUpdate()
-    {
-        //velocity += (gravity * gravityScale) * Time.fixedDeltaTime;
-        //float vPos = rb.position.y + velocity * Time.fixedDeltaTime;
-        //rb.MovePosition(new Vector3(rb.position.x, vPos, rb.position.z));
     }
     void OnCollisionEnter(Collision collision)
     {
