@@ -7,6 +7,7 @@ public class Spawner : MonoBehaviour
     public float maxTime = 1;
     private float timer = 0;
     private GameObject asteroids;
+    public GameObject scoreTrigger;
     public List<GameObject> asteroidGroups = new List<GameObject>();
 
 
@@ -15,8 +16,14 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         asteroids = asteroidGroups[Random.Range(0, asteroidGroups.Count)];
+        
         GameObject newAsteroids = Instantiate(asteroids);
         newAsteroids.transform.position = transform.position;
+
+        GameObject newScoreTrigger = Instantiate(scoreTrigger);
+        newScoreTrigger.transform.parent = newAsteroids.transform;
+        newScoreTrigger.transform.position = newAsteroids.transform.position;
+        Destroy(newAsteroids, 15);
     }
 
     // Update is called once per frame
@@ -27,6 +34,9 @@ public class Spawner : MonoBehaviour
             asteroids = asteroidGroups[Random.Range(0, asteroidGroups.Count)];
             GameObject newAsteroids = Instantiate(asteroids);
             newAsteroids.transform.position = transform.position;
+            GameObject newScoreTrigger = Instantiate(scoreTrigger);
+            newScoreTrigger.transform.parent = newAsteroids.transform;
+            newScoreTrigger.transform.position = newAsteroids.transform.position;
             Destroy(newAsteroids, 15);
             timer = 0;
         }
